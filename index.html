@@ -22,7 +22,7 @@
     <div class="countdown-container" id="countdown-container">
     <h2 class="judul"> Hitung Mundur Menuju Ulang Tahun 🎉</h2>
     <p class="countdown" id="countdown"></p>
-    <button id="surpriseBtn" >Lihat Kejutan 🎁</button>
+    <button id="surpriseBtn" disabled >Lihat Kejutan 🎁</button>
     <div id="surpriseText" class="hidden">🎈 Kamu luar biasa! Tetap semangat dan bahagia selalu! 🥳</div>
   </div>
 
@@ -49,8 +49,14 @@
     const now = new Date();
     const diff = targetDate - now;
 
+    const countdownE1 = document.getElementById("countdown");
+    const buttonE1 = document.getElementById("surprise.Btn");
+
     if (diff <= 0) {
-      document.getElementById("countdown").innerText = "Selamat Ulang Tahun! 🎉";
+      countdownEl.innerText = "Selamat Ulang Tahun! 🎉";
+      buttonEl.disabled = false; // Aktifkan tombol
+      buttonEl.style.opacity = "1"; // Tambahan efek visual
+      buttonEl.style.cursor = "pointer";
       return;
     }
 
@@ -61,6 +67,12 @@
 
     document.getElementById("countdown").innerText =
       `${days} hari ${hours} jam ${minutes} menit ${seconds} detik lagi 🎂`;
+  
+
+  //optional 
+  buttonE1.disabled = true;
+  buttonE1.style.opacity = "0.5";  
+  buttonE1.style.cursor = "not allowed";
   }
 
   setInterval(updateCountdown, 1000);

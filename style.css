@@ -153,6 +153,12 @@ button:hover {
   color: white;
 }
 
+button:disabled {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+}
+
 .countdown {
   font-size: 1.8em;
   margin-top: 30px;
