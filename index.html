@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <link rel="Icon" href="aset\kue.png" type="img/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Selamat Ulang Tahun! 🎂</h1>
+    <h1>Yonatan</h1>
+    <h2 class="umur">yang ke 26 tahun</h2>
+    <!--balloons-->
+    <div class="balloons">
+        <div class="balloons-left"></div>
+            <div class="balloons-right"></div>
+        </div>
+    <!--countdown ulang tahun-->
+    <div class="countdown-container" id="countdown-container">
+    <h2 class="judul"> Hitung Mundur Menuju Ulang Tahun 🎉</h2>
+    <p class="countdown" id="countdown"></p>
+    <button id="surpriseBtn" >Lihat Kejutan 🎁</button>
+    <div id="surpriseText" class="hidden">🎈 Kamu luar biasa! Tetap semangat dan bahagia selalu! 🥳</div>
+  </div>
+
+  <!-- Balon -->
+  <div class="balloons">
+    <div class="balloon red"></div>
+    <div class="balloon blue"></div>
+    <div class="balloon yellow"></div>
+    <div class="balloon green"></div>
+  </div>
+
+  <script>
+    document.getElementById("surpriseBtn").addEventListener("click", function () {
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = "kejutan.html";
+      }, 800);
+    });
+  </script>
+
+  <script>
+  function updateCountdown() {
+    const targetDate = new Date("2025-05-28T00:00:00"); // Ganti dengan tanggal ulang tahun
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerText = "Selamat Ulang Tahun! 🎉";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerText =
+      `${days} hari ${hours} jam ${minutes} menit ${seconds} detik lagi 🎂`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+<script>
+  function createBalloon(side) {
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+
+    const colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple'];
+    balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+    // Posisi horizontal acak dalam kontainer
+    balloon.style.left = Math.random() * 30 + 'px';
+    balloon.style.animationDuration = (4 + Math.random() * 4) + 's';
+
+    // Tambah ke sisi kiri atau kanan
+    const container = document.querySelector(`.balloons-${side}`);
+    container.appendChild(balloon);
+
+    // Hapus balon setelah selesai
+    setTimeout(() => balloon.remove(), 8000);
+  }
+
+  setInterval(() => {
+    createBalloon('left');
+    createBalloon('right');
+  }, 500);
+</script>
+
+
+
+</body>
+</html>
+</body>
+</html>
+
+
+  
