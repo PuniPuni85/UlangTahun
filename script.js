@@ -1,23 +1,67 @@
-function updateCountdown() {
-  const countdown = document.getElementById("countdown");
-  if (!countdown) return;
+document.addEventListener("DOMContentLoaded", function () {
+  const buttonEl = document.getElementById("surpriseBtn");
+  const countdownEl = document.getElementById("countdown");
+  const overlay = document.getElementById("countdown-overlay");
+  const countdownTimer = document.getElementById("countdown-timer");
 
-  const now = new Date();
-  const nextBirthday = new Date(now.getFullYear(), 4, 28); // Misalnya: 25 Desember
-  if (now > nextBirthday) {
-    nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+  buttonEl.addEventListener("click", function () {
+    document.body.classList.add("fade-out");
+    setTimeout(() => {
+      window.location.href = "kejutan.html";
+    }, 800);
+  });
+
+  function updateCountdown() {
+    const targetDate = new Date("2025-06-20T00:00:00");
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      countdownEl.innerText = "Selamat Ulang Tahun! 🎉";
+      countdownTimer.innerText = "Selamat Ulang Tahun! 🎉";
+      overlay.classList.add("hidden");
+      buttonEl.disabled = false;
+      buttonEl.style.opacity = "1";
+      buttonEl.style.cursor = "pointer";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    const countdownText = `${days} hari ${hours} jam ${minutes} menit ${seconds} detik lagi 🎂`;
+
+    countdownEl.innerText = countdownText;
+    countdownTimer.innerText = countdownText;
+
+    buttonEl.disabled = true;
+    buttonEl.style.opacity = "0.5";
+    buttonEl.style.cursor = "not-allowed";
   }
 
-  const diff = nextBirthday - now;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 
-  countdown.innerHTML = `Countdown ke ulang tahun: ${days} hari, ${hours} jam, ${minutes} menit, ${seconds} detik`;
-}
+  function createBalloon(side) {
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
+    const colors = ['red', 'blue', 'yellow', 'green', 'pink', 'purple'];
+    balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    balloon.style.left = `${Math.random() * 90}%`;
+    balloon.style.animationDuration = (4 + Math.random() * 4) + 's';
 
-document.querySelector(".balloons").appendChild(balloon);
+    const container = document.querySelector(`.balloons-${side}`);
+    if (container) {
+      container.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 8000);
+    }
+  }
+
+  setInterval(() => {
+    createBalloon('left');
+    createBalloon('right');
+  }, 500);
+});
