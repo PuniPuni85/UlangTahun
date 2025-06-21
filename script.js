@@ -65,3 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
     createBalloon('right');
   }, 500);
 });
+
+setTimeout(() => {
+  const ucapanEl = document.querySelector('.ucapan');
+  if (ucapanEl) {
+    ucapanEl.classList.remove('hidden');
+    ucapanEl.classList.add('show');
+  }
+}, 4000); // 3 detik delay candle + 1 detik animasi
+
